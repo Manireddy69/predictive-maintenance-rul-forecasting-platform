@@ -1,0 +1,29 @@
+# Python cache and environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Notebook and test cache
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Local environment files
+.env
+.env.*
+
+# Generated project data
+Data/Synthetic/
