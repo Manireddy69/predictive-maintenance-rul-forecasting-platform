@@ -1,52 +1,66 @@
-# LogicVeda Project 1
+# Predictive Maintenance and RUL Forecasting Platform
 
-Welcome to the LogicVeda Project 1 workspace. This project is built around the Predictive Maintenance and RUL Forecasting use case from the LogicVeda capstone PDF.
+This repository is for building a predictive maintenance project around Remaining Useful Life (RUL) forecasting, anomaly detection, and maintenance decision support.
 
-## What this folder is for
-This repository is your working area for learning by doing. The goal is to turn the project plan into real code, step by step.
+The project is based on the LogicVeda capstone brief, but the repo is being developed as a learning-driven engineering project, not as a day-by-day checklist dump.
 
-## Why this project is valuable
-You will learn how to build a complete data science system that:
-- ingests and prepares equipment sensor data
-- detects anomalies in real time
-- predicts remaining useful life (RUL)
-- recommends maintenance schedules
-- presents results through a dashboard
-- is ready for deployment with Docker
+## Project goal
 
-## How the workspace is organized
-- `src/` - the core Python code for data loading, preprocessing, feature engineering, models, and training
-- `app/` - the interface/dashboard or demo application
-- `deploy/` - deployment files such as Docker setup and environment configs
-- `tests/` - small tests to verify that each piece works correctly
-- `notebooks/` - exploratory work, experiments, and analysis
-- `Data/` - the dataset files already provided in this project
+Build an end-to-end system that can:
+- analyze equipment sensor data
+- detect abnormal behavior
+- estimate remaining useful life
+- support maintenance planning
+- evolve toward a deployable application
 
-## Getting started
-1. Open `Data/` and inspect the dataset files.
-2. Run `day1_eda.py` from the project root to inspect the dataset structure and Day 1 RUL assumptions.
-   - `python day1_eda.py --source nasa`
-   - `python day1_eda.py --source synthetic`
-   - `python day1_eda.py --source kaggle --kaggle-name your_dataset_name`
-3. Start with a small data-loading script in `src/data.py`.
-4. Use Day 1 to answer the important questions first: what the target is, which sensors are constant, and how leakage can happen.
-5. Add feature engineering only after the sequence structure and target logic are clear.
-6. Move into anomaly detection and forecasting after the data understanding is stable.
+## How this repo is meant to be used
 
-## A friendly workflow
-1. Read the project PDF and keep the main goals in mind.
-2. Work in small increments: one feature, one model, one evaluation at a time.
-3. Use notebooks for exploration and `src/` for reusable code.
-4. Keep notes on what you learn and what changes next.
+This repo has two jobs:
+- project implementation
+- learning record
 
-## Suggested first steps
-1. Start with `Data/CMaps` because it is the main run-to-failure dataset for RUL learning.
-2. Use `src/data.py` to understand the CMAPSS schema: unit, cycle, settings, and 21 sensors.
-3. Run `day1_eda.py` and the Day 1 notebook to identify constant columns, high-variance sensors, and rough degradation candidates.
-4. Make sure you understand how train RUL is derived before engineering any features.
-5. Only then move to rolling features and a baseline model.
+Implementation lives in code and notebooks.
+Learning lives in the journal, where concepts, definitions, decisions, library usage, and mistakes are documented as the project grows.
 
-## Keep it simple and practical
-This project is about learning the full flow, not about making it perfect on the first try. Start with easy, working code, then improve it from there.
+## Repository structure
 
-If you want, I can also create a starter scaffold with `src/data.py`, `src/features.py`, and a sample notebook to get you moving quickly.
+- `src/` - reusable Python code for data loading, EDA helpers, feature engineering, modeling, and utilities
+- `notebooks/` - exploratory work and analysis notebooks
+- `Data/` - source datasets used for the project
+- `app/` - future app or dashboard code
+- `deploy/` - future deployment-related files
+- `tests/` - test files as the project becomes more structured
+- `journal/` - learning notes, definitions, why a method was used, library explanations, and mistakes
+
+## Current focus
+
+Right now the project is still in the early data-understanding stage.
+The main dataset is NASA CMAPSS, which is the core dataset for learning the RUL problem properly.
+
+## Working style
+
+- keep notebooks for exploration
+- keep reusable logic in `src/`
+- write down reasoning, not just results
+- separate learning value from production realism
+- avoid adding infrastructure before the core ML problem is understood
+
+## Learning journal
+
+Use the journal as a technical notebook for yourself, not as polished documentation.
+
+Suggested things to capture:
+- definitions of new terms
+- what a dataset or feature actually means
+- why a method was chosen
+- what each library is doing in the project
+- what can go wrong
+- what still feels unclear
+
+Start here:
+- `journal/learning_journal.md`
+
+## Notes
+
+This README should stay high level.
+Daily execution details, detailed notes, and learning reflections belong in the journal or project-specific notebooks, not here.
