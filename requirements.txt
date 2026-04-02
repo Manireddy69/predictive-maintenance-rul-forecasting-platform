@@ -6,3 +6,4 @@ scipy
 statsmodels
 faker
 jupyter
+psycopg[binary]
