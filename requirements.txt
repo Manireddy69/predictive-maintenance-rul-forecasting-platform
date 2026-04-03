@@ -7,3 +7,4 @@ statsmodels
 faker
 jupyter
 psycopg[binary]
+kafka-python
