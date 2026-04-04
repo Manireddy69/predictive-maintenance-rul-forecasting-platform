@@ -37,6 +37,62 @@ Learning lives in the journal, where concepts, definitions, decisions, library u
 Right now the project is still in the early data-understanding stage.
 The main dataset is NASA CMAPSS, which is the core dataset for learning the RUL problem properly.
 
+## Day 4 pipeline slice
+
+The repo now also includes a first batch feature pipeline for telemetry-style CSV data:
+- `dags/batch_csv_to_timescaledb.py` orchestrates batch CSV ingestion, validation, feature engineering, and TimescaleDB loading
+- `src/batch_pipeline.py` stages raw CSV batches and writes engineered feature CSVs
+- `src/batch_validation.py` runs batch validation and uses Great Expectations when it is installed
+- `src/feature_engineering.py` builds rolling 1h/8h/24h statistics, lag-1 to lag-12 values, FFT top-5 amplitudes, and cross-sensor ratios
+- `src/ingest_feature_timescaledb.py` loads engineered features into the `telemetry.sensor_features` hypertable
+
+The feature store table is created in:
+- `db/init/002_sensor_features.sql`
+
+If you want the orchestration dependencies separately from the lighter project dependencies, install:
+
+```bash
+pip install -r requirements-orchestration.txt
+```
+
+## Airflow runtime
+
+The project now includes a Dockerized Airflow runtime for the Day 4 batch DAG.
+
+Files involved:
+- `dags/batch_csv_to_timescaledb.py`
+- `deploy/airflow/Dockerfile`
+- `docker-compose.yml`
+
+Bring it up with:
+
+```bash
+docker compose up -d timescaledb airflow-postgres airflow-init airflow-webserver airflow-scheduler
+```
+
+Then open:
+- `http://localhost:8080`
+
+Default Airflow login:
+- username: `admin`
+- password: `admin`
+
+The DAG you can run is:
+- `batch_csv_to_timescaledb`
+
+What it does:
+1. Reads the batch CSV from `Data/batch/sensor_batch.csv`
+2. Normalizes and stages it into `Data/batch/staging/normalized_sensor_batch.csv`
+3. Validates the staged data with Great Expectations-compatible checks
+4. Engineers rolling, lag, FFT, and ratio features into `Data/batch/staging/engineered_sensor_features.csv`
+5. Loads the engineered rows into `telemetry.sensor_features` in TimescaleDB
+
+You can also trigger it from the CLI:
+
+```bash
+docker exec project1-airflow-scheduler airflow dags trigger batch_csv_to_timescaledb
+```
+
 ## Working style
 
 - keep notebooks for exploration

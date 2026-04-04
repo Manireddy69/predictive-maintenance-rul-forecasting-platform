@@ -20,3 +20,11 @@ Complete the first day of the project by inspecting the dataset and building the
 - Add simple rolling feature engineering in `src/features.py`.
 - Create a notebook for visualizing sensor behavior over time.
 - Build a baseline anomaly detection model.
+
+## Day 4 planner
+- Add an Airflow DAG for batch CSV ingestion, validation, feature engineering, and TimescaleDB loading.
+- Validate batch sensor CSVs with Great Expectations checks for schema, nulls, duplicates, and sensor ranges.
+- Engineer rolling 1h/8h/24h mean/std/min/max features.
+- Engineer lag-1 to lag-12 features.
+- Engineer FFT top-5 frequency amplitude features.
+- Engineer cross-sensor ratio features and load the result into a TimescaleDB hypertable.

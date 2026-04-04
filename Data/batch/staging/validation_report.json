@@ -1,0 +1,236 @@
+{
+  "success": true,
+  "engine": "great-expectations",
+  "checks": [
+    {
+      "name": "required_columns",
+      "success": true,
+      "details": "all required columns present"
+    },
+    {
+      "name": "event_time_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "equipment_id_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "unique_batch_keys",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_1_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_1_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_2_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_2_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_3_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_3_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_4_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_4_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_5_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_5_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_6_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_6_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_7_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_7_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_8_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_8_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_9_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_9_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_10_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_10_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_11_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_11_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_12_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_12_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_13_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_13_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_14_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_14_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_15_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_15_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_16_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_16_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_17_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_17_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_18_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_18_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_19_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_19_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_20_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_20_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_21_non_null",
+      "success": true,
+      "details": "{'element_count': 8, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'partial_unexpected_list': []}"
+    },
+    {
+      "name": "sensor_21_range",
+      "success": true,
+      "details": "{'element_count': 8, 'missing_count': 0, 'missing_percent': 0.0, 'unexpected_count': 0, 'unexpected_percent': 0.0, 'unexpected_percent_total': 0.0, 'unexpected_percent_nonmissing': 0.0, 'partial_unexpected_list': []}"
+    }
+  ]
+}

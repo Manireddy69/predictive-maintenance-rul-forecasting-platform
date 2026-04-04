@@ -1,0 +1,5 @@
+pandas
+numpy
+psycopg[binary]
+great-expectations>=0.18,<1
+apache-airflow>=2.10,<3
