@@ -5,9 +5,11 @@ import pandas as pd
 
 from src.anomaly_baseline import (
     ANOMALY_FEATURE_COLUMNS,
+    ANOMALY_SCORE_COLUMNS,
     build_holdout_with_injected_anomalies,
     evaluate_anomaly_scores,
     prepare_feature_frame,
+    run_scored_baseline_experiment,
 )
 
 
@@ -61,3 +63,25 @@ def test_evaluate_anomaly_scores_returns_perfect_metrics_for_separable_scores() 
     assert result.pr_auc == 1.0
     assert len(result.precision) == len(result.recall)
     assert len(result.thresholds) == len(result.precision) - 1
+
+
+def test_run_scored_baseline_experiment_returns_plot_ready_scores() -> None:
+    train_df = _make_holdout_df()
+    holdout_df = _make_holdout_df()
+
+    evaluation_df, results = run_scored_baseline_experiment(
+        train_df=train_df,
+        holdout_df=holdout_df,
+        anomaly_fraction=0.2,
+        contamination=0.2,
+        random_state=7,
+        n_neighbors=5,
+    )
+
+    assert len(evaluation_df) > len(holdout_df)
+    assert set(ANOMALY_SCORE_COLUMNS).issubset(evaluation_df.columns)
+    for score_column in ANOMALY_SCORE_COLUMNS:
+        assert np.issubdtype(evaluation_df[score_column].dtype, np.number)
+        assert evaluation_df[score_column].notna().all()
+
+    assert set(results) == {"isolation_forest", "local_outlier_factor"}

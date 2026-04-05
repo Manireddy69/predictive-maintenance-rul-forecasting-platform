@@ -13,6 +13,7 @@ from sklearn.preprocessing import StandardScaler
 from .data import OPERATIONAL_SETTING_COLUMNS, SENSOR_COLUMNS, load_dataset
 
 ANOMALY_FEATURE_COLUMNS = [*OPERATIONAL_SETTING_COLUMNS, *SENSOR_COLUMNS]
+ANOMALY_SCORE_COLUMNS = ["isolation_forest_score", "local_outlier_factor_score"]
 
 
 def _load_pyod_lof():
@@ -170,7 +171,7 @@ def evaluate_anomaly_scores(
     )
 
 
-def run_baseline_experiment(
+def run_scored_baseline_experiment(
     train_df: pd.DataFrame,
     holdout_df: pd.DataFrame,
     anomaly_fraction: float = 0.08,
@@ -209,10 +210,34 @@ def run_baseline_experiment(
     )
     lof_scores = np.asarray(lof_model.decision_function(X_eval_scaled), dtype=float)
 
+    scored_evaluation_df = evaluation_df.copy()
+    scored_evaluation_df["isolation_forest_score"] = if_scores.astype(float, copy=False)
+    scored_evaluation_df["local_outlier_factor_score"] = lof_scores.astype(float, copy=False)
+
     results = {
         "isolation_forest": evaluate_anomaly_scores(y_true, if_scores, model_name="Isolation Forest"),
         "local_outlier_factor": evaluate_anomaly_scores(y_true, lof_scores, model_name="Local Outlier Factor"),
     }
+    return scored_evaluation_df, results
+
+
+def run_baseline_experiment(
+    train_df: pd.DataFrame,
+    holdout_df: pd.DataFrame,
+    anomaly_fraction: float = 0.08,
+    contamination: float = 0.08,
+    random_state: int = 42,
+    n_neighbors: int = 35,
+) -> tuple[pd.DataFrame, dict[str, AnomalyEvaluation]]:
+    scored_evaluation_df, results = run_scored_baseline_experiment(
+        train_df=train_df,
+        holdout_df=holdout_df,
+        anomaly_fraction=anomaly_fraction,
+        contamination=contamination,
+        random_state=random_state,
+        n_neighbors=n_neighbors,
+    )
+    evaluation_df = scored_evaluation_df.drop(columns=ANOMALY_SCORE_COLUMNS)
     return evaluation_df, results
 
 
