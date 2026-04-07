@@ -85,6 +85,7 @@ Used for controlled anomaly experiments where clean anomaly labels are needed fo
 - `PostgreSQL + TimescaleDB`
 - `Kafka`
 - `Airflow`
+- `MLflow`
 
 ### Data processing and validation
 
@@ -125,6 +126,15 @@ Kafka topics currently include:
 - `anomalies-flagged`
 
 The Python producer simulates mostly normal operation and injects anomalies at controlled intervals so downstream detection can be evaluated.
+
+### Kafka to TimescaleDB ingestion
+
+The stream-to-storage path now includes:
+
+- `src/stream_sensor_producer.py`
+- `src/kafka_to_timescaledb_consumer.py`
+
+This makes the Week 1 Kafka to TimescaleDB checkpoint concrete rather than only conceptual.
 
 ### Batch feature pipeline
 
@@ -185,6 +195,7 @@ Project-1/
 |-- dags/           # Airflow DAG definitions
 |-- db/             # database initialization scripts
 |-- Data/           # datasets, staged files, and experiment artifacts
+|-- reports/        # generated EDA and checkpoint reports
 |-- tests/          # pipeline and anomaly detection tests
 |-- deploy/         # runtime and deployment helpers
 |-- airflow/        # local Airflow runtime assets
@@ -230,10 +241,23 @@ This will:
 - compare it against the simpler methods
 - save metrics and artifacts under `Data/experiments/anomaly_day6/`
 
-### 4. Run tests
+### 4. Log the anomaly comparison to MLflow
 
 ```bash
-python -m pytest tests/test_anomaly_baseline.py tests/test_anomaly_lstm_autoencoder.py -q
+python -m src.anomaly_lstm_autoencoder --epochs 20 --sequence-length 30 --stride 5 --run-name week1_checkpoint --log-mlflow
+```
+
+This logs:
+
+- run parameters
+- model metrics
+- best-model summary
+- saved artifacts
+
+### 5. Run tests
+
+```bash
+python -m pytest tests/test_anomaly_baseline.py tests/test_anomaly_lstm_autoencoder.py tests/test_kafka_to_timescaledb_consumer.py -q
 ```
 
 ## Airflow Runtime
@@ -282,6 +306,13 @@ Useful notebooks in the project:
 
 - `03_lstm_autoencoder_comparison.ipynb`
   Review notebook for saved LSTM comparison artifacts
+
+## Reports
+
+Generated project reports currently include:
+
+- `reports/week1_eda_report.md`
+- `reports/week1_checkpoint.md`
 
 ## Current Project State
 

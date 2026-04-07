@@ -27,3 +27,4 @@ dist/
 
 # Generated project data
 Data/Synthetic/
+mlruns/

@@ -12,3 +12,4 @@ psycopg[binary]
 kafka-python
 torch
 pytest
+mlflow

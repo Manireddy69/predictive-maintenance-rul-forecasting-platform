@@ -222,6 +222,21 @@ What can go wrong:
 - claiming improvement without controlled comparison
 - doing feature engineering just to feel busy
 
+#### Day 7 checkpoint note
+
+Completed:
+
+- generated and committed a Week 1 EDA report
+- closed the Kafka to TimescaleDB path by adding the consumer side
+- added MLflow logging for anomaly comparison runs
+- wrote a Week 1 checkpoint summary
+
+What that means:
+
+- Week 1 now has both analysis artifacts and pipeline artifacts
+- the anomaly comparison is not just saved locally, it can also be tracked through MLflow
+- the stream-to-storage story is now complete enough to claim as a working slice
+
 ## Phase 3 - Move into sequence modeling
 
 ### Day 8 - Build sliding windows

@@ -20,6 +20,7 @@ from .anomaly_baseline import (
     score_anomaly_detectors,
 )
 from .data import load_dataset
+from .mlflow_tracking import log_week1_anomaly_checkpoint
 
 
 @dataclass(frozen=True)
@@ -52,6 +53,7 @@ class SavedExperimentArtifacts:
     training_history_csv: Path
     metadata_json: Path
     summary_markdown: Path
+    mlflow_summary_json: Path | None = None
 
 
 def _load_torch_runtime() -> tuple[Any, Any, Any, Any]:
@@ -590,6 +592,23 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Optional folder name for the saved run. Defaults to a UTC timestamp.",
     )
+    parser.add_argument(
+        "--log-mlflow",
+        action="store_true",
+        help="Log the saved anomaly comparison run to MLflow.",
+    )
+    parser.add_argument(
+        "--mlflow-experiment",
+        type=str,
+        default="week1-anomaly-checkpoint",
+        help="MLflow experiment name used when --log-mlflow is enabled.",
+    )
+    parser.add_argument(
+        "--mlflow-tracking-uri",
+        type=str,
+        default="",
+        help="Optional MLflow tracking URI. Defaults to a local file-based mlruns directory.",
+    )
     return parser.parse_args()
 
 
@@ -645,6 +664,26 @@ def main() -> None:
         random_state=args.random_state,
     )
 
+    mlflow_run_id: str | None = None
+    if args.log_mlflow:
+        metadata = json.loads(artifacts.metadata_json.read_text(encoding="utf-8"))
+        mlflow_run_id = log_week1_anomaly_checkpoint(
+            comparison_df=comparison_df,
+            metadata=metadata,
+            artifact_paths=[
+                artifacts.comparison_csv,
+                artifacts.window_scores_csv,
+                artifacts.row_scores_csv,
+                artifacts.training_history_csv,
+                artifacts.metadata_json,
+                artifacts.summary_markdown,
+            ],
+            project_root=project_root,
+            experiment_name=args.mlflow_experiment,
+            run_name=run_name,
+            tracking_uri=args.mlflow_tracking_uri.strip() or None,
+        )
+
     print("=== Window-level anomaly detection comparison ===")
     print(comparison_df.to_string(index=False))
     print()
@@ -653,6 +692,8 @@ def main() -> None:
     print(f"Final training loss: {history_df['train_loss'].iloc[-1]:.6f}")
     print(f"Saved artifacts: {artifacts.output_dir}")
     print(f"Summary report: {artifacts.summary_markdown}")
+    if mlflow_run_id is not None:
+        print(f"MLflow run id: {mlflow_run_id}")
 
 
 if __name__ == "__main__":

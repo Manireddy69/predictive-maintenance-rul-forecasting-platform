@@ -20,7 +20,7 @@ This folder holds the working interpretation:
   The main note-taking template.
   Use this when you need structure.
 
-- `day_01.md` to `day_06.md`
+- `day_01.md` to `day_07.md`
   Daily working notes.
   These matter more than the template because they show what the project actually felt like while it was being built.
 
