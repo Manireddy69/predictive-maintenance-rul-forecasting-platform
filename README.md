@@ -1,122 +1,297 @@
-# Predictive Maintenance and RUL Forecasting Platform
+# Predictive Maintenance Platform
 
-This repository is for building a predictive maintenance project around Remaining Useful Life (RUL) forecasting, anomaly detection, and maintenance decision support.
+An end-to-end predictive maintenance project built around sensor telemetry, time-series storage, feature engineering, anomaly detection, and sequence modeling.
 
-The project is based on the LogicVeda capstone brief, but the repo is being developed as a learning-driven engineering project, not as a day-by-day checklist dump.
+This repository brings together:
 
-## Project goal
+- industrial-style telemetry pipelines
+- batch and streaming data flow
+- time-series database design
+- classical anomaly detection baselines
+- deep learning with an LSTM autoencoder
 
-Build an end-to-end system that can:
-- analyze equipment sensor data
-- detect abnormal behavior
-- estimate remaining useful life
-- support maintenance planning
-- evolve toward a deployable application
+## Why This Project Exists
 
-## How this repo is meant to be used
+Predictive maintenance problems are rarely just "train a model on a CSV."
 
-This repo has two jobs:
-- project implementation
-- learning record
+Real maintenance systems usually involve:
 
-Implementation lives in code and notebooks.
-Learning lives in the journal, where concepts, definitions, decisions, library usage, and mistakes are documented as the project grows.
+- sensor streams that arrive over time
+- telemetry that needs validation before it can be trusted
+- time-aware storage and querying
+- feature engineering across rolling windows
+- anomaly detection before full failure labels are available
 
-## Repository structure
+This project is built around that reality.
 
-- `src/` - reusable Python code for data loading, EDA helpers, feature engineering, modeling, and utilities
-- `notebooks/` - exploratory work and analysis notebooks
-- `Data/` - source datasets used for the project
-- `app/` - future app or dashboard code
-- `deploy/` - future deployment-related files
-- `tests/` - test files as the project becomes more structured
-- `journal/` - learning notes, definitions, why a method was used, library explanations, and mistakes
+## Highlights
 
-## Current focus
+- Uses `NASA CMAPSS` as the main sequential maintenance dataset
+- Supports `synthetic telemetry generation` for controlled anomaly experiments
+- Stores telemetry in `TimescaleDB` using time-series structure
+- Simulates real-time flow with `Kafka`
+- Orchestrates batch ingestion with `Airflow`
+- Engineers rolling, lag, FFT, and ratio-based sensor features
+- Compares anomaly methods from simple statistical scoring to deep sequence models
+- Saves experiment artifacts for reproducible review
 
-Right now the project is still in the early data-understanding stage.
-The main dataset is NASA CMAPSS, which is the core dataset for learning the RUL problem properly.
+## Results Snapshot
 
-## Day 4 pipeline slice
+Current anomaly detection results on the synthetic window-level comparison:
 
-The repo now also includes a first batch feature pipeline for telemetry-style CSV data:
-- `dags/batch_csv_to_timescaledb.py` orchestrates batch CSV ingestion, validation, feature engineering, and TimescaleDB loading
-- `src/batch_pipeline.py` stages raw CSV batches and writes engineered feature CSVs
-- `src/batch_validation.py` runs batch validation and uses Great Expectations when it is installed
-- `src/feature_engineering.py` builds rolling 1h/8h/24h statistics, lag-1 to lag-12 values, FFT top-5 amplitudes, and cross-sensor ratios
-- `src/ingest_feature_timescaledb.py` loads engineered features into the `telemetry.sensor_features` hypertable
+| Method | ROC-AUC | PR-AUC | Summary |
+| --- | --- | --- | --- |
+| `MAD` | `0.9416` | `0.9400` | Strongest current method in this setup |
+| `z-score` | `0.9407` | `0.9399` | Nearly tied with MAD and highly interpretable |
+| `LSTM Autoencoder` | `0.9334` | `0.9285` | Strong temporal model with reconstruction-error scoring |
+| `Local Outlier Factor` | `0.9183` | `0.9213` | Strong local-density baseline |
+| `Isolation Forest` | `0.7594` | `0.6728` | Weakest of the current comparison set |
 
-The feature store table is created in:
-- `db/init/002_sensor_features.sql`
+Main takeaway:
+the LSTM autoencoder is competitive and learns useful sequence structure, but the simpler robust statistical methods are still slightly better on the current synthetic anomaly design.
 
-If you want the orchestration dependencies separately from the lighter project dependencies, install:
+## System View
+
+```text
+CMAPSS / Kaggle / Synthetic telemetry
+                |
+                +--> Kafka producer --> raw-sensor-data --> cleaned-features --> anomalies-flagged
+                |
+                +--> Batch CSV ingestion --> validation --> feature engineering --> TimescaleDB
+                                                                    |
+                                                                    +--> anomaly baselines
+                                                                    +--> LSTM autoencoder
+                                                                    +--> saved experiment artifacts
+```
+
+## Datasets
+
+### NASA CMAPSS turbofan dataset
+
+Used as the main sequential dataset for predictive maintenance and time-aware modeling.
+
+### Kaggle predictive maintenance datasets
+
+Used as supporting reference datasets for telemetry structure, maintenance-style sensor data, and comparison context.
+
+### Synthetic telemetry
+
+Used for controlled anomaly experiments where clean anomaly labels are needed for evaluation.
+
+## Technology Stack
+
+### Data and storage
+
+- `PostgreSQL + TimescaleDB`
+- `Kafka`
+- `Airflow`
+
+### Data processing and validation
+
+- `pandas`
+- `numpy`
+- `Great Expectations`
+
+### Machine learning and analysis
+
+- `scikit-learn`
+- `PyOD`
+- `PyTorch`
+- `matplotlib`
+- `seaborn`
+- `scipy`
+- `statsmodels`
+
+## Pipeline Components
+
+### Time-series storage
+
+The telemetry schema supports fields such as:
+
+- `timestamp`
+- `equipment_id`
+- `run_id`
+- sensor readings
+- `failure_label`
+
+TimescaleDB is used so the data can be queried and aggregated in a time-aware way rather than treated like generic tabular storage.
+
+### Streaming simulation
+
+Kafka topics currently include:
+
+- `raw-sensor-data`
+- `cleaned-features`
+- `anomalies-flagged`
+
+The Python producer simulates mostly normal operation and injects anomalies at controlled intervals so downstream detection can be evaluated.
+
+### Batch feature pipeline
+
+The batch pipeline supports:
+
+- CSV ingestion
+- validation checks
+- staged normalization
+- feature engineering
+- loading engineered features into TimescaleDB
+
+The Airflow DAG for this flow is:
+
+- `batch_csv_to_timescaledb`
+
+## Feature Engineering
+
+The current telemetry feature pipeline builds:
+
+- rolling `1h`, `8h`, and `24h` mean, std, min, and max
+- `lag-1` to `lag-12`
+- FFT top frequency amplitudes
+- cross-sensor ratios
+
+These features are designed to capture:
+
+- local state
+- volatility
+- temporal memory
+- frequency behavior
+- relationships between sensors
+
+## Anomaly Detection Methods
+
+The anomaly track includes both baseline and sequence-based methods.
+
+### Classical and statistical methods
+
+- `Isolation Forest`
+- `Local Outlier Factor`
+- `z-score`
+- `MAD` (Median Absolute Deviation)
+
+These methods are useful because they are fast, interpretable, and provide strong baselines before moving into more complex models.
+
+### Deep learning method
+
+- `LSTM Autoencoder`
+
+The LSTM autoencoder is trained on normal sequence windows and uses reconstruction error as the anomaly score. Thresholding is based on the upper quantile of train reconstruction errors.
+
+## Repository Structure
+
+```text
+Project-1/
+|-- src/            # reusable Python modules
+|-- notebooks/      # analysis and experiment review notebooks
+|-- dags/           # Airflow DAG definitions
+|-- db/             # database initialization scripts
+|-- Data/           # datasets, staged files, and experiment artifacts
+|-- tests/          # pipeline and anomaly detection tests
+|-- deploy/         # runtime and deployment helpers
+|-- airflow/        # local Airflow runtime assets
+```
+
+## Quickstart
+
+### 1. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+For orchestration-related dependencies:
 
 ```bash
 pip install -r requirements-orchestration.txt
 ```
 
-## Airflow runtime
+### 2. Run the baseline anomaly comparison
 
-The project now includes a Dockerized Airflow runtime for the Day 4 batch DAG.
+```bash
+python -m src.anomaly_baseline
+```
 
-Files involved:
-- `dags/batch_csv_to_timescaledb.py`
-- `deploy/airflow/Dockerfile`
-- `docker-compose.yml`
+This runs:
 
-Bring it up with:
+- Isolation Forest
+- Local Outlier Factor
+- z-score
+- MAD
+
+### 3. Run the LSTM autoencoder comparison
+
+```bash
+python -m src.anomaly_lstm_autoencoder --epochs 20 --sequence-length 30 --stride 5 --run-name day6_final
+```
+
+This will:
+
+- train the LSTM autoencoder
+- score anomaly windows using reconstruction error
+- compare it against the simpler methods
+- save metrics and artifacts under `Data/experiments/anomaly_day6/`
+
+### 4. Run tests
+
+```bash
+python -m pytest tests/test_anomaly_baseline.py tests/test_anomaly_lstm_autoencoder.py -q
+```
+
+## Airflow Runtime
+
+To start the local Airflow and TimescaleDB stack:
 
 ```bash
 docker compose up -d timescaledb airflow-postgres airflow-init airflow-webserver airflow-scheduler
 ```
 
 Then open:
+
 - `http://localhost:8080`
 
-Default Airflow login:
+Default credentials:
+
 - username: `admin`
 - password: `admin`
 
-The DAG you can run is:
-- `batch_csv_to_timescaledb`
+## Experiment Artifacts
 
-What it does:
-1. Reads the batch CSV from `Data/batch/sensor_batch.csv`
-2. Normalizes and stages it into `Data/batch/staging/normalized_sensor_batch.csv`
-3. Validates the staged data with Great Expectations-compatible checks
-4. Engineers rolling, lag, FFT, and ratio features into `Data/batch/staging/engineered_sensor_features.csv`
-5. Loads the engineered rows into `telemetry.sensor_features` in TimescaleDB
+LSTM comparison runs save outputs under:
 
-You can also trigger it from the CLI:
+- `Data/experiments/anomaly_day6/`
 
-```bash
-docker exec project1-airflow-scheduler airflow dags trigger batch_csv_to_timescaledb
-```
+Each saved run includes:
 
-## Working style
+- `comparison_metrics.csv`
+- `window_scores.csv`
+- `row_level_scores.csv`
+- `training_history.csv`
+- `run_metadata.json`
+- `day_06_summary.md`
 
-- keep notebooks for exploration
-- keep reusable logic in `src/`
-- write down reasoning, not just results
-- separate learning value from production realism
-- avoid adding infrastructure before the core ML problem is understood
+This makes model runs reviewable without retraining every time.
 
-## Learning journal
+## Notebooks
 
-Use the journal as a technical notebook for yourself, not as polished documentation.
+Useful notebooks in the project:
 
-Suggested things to capture:
-- definitions of new terms
-- what a dataset or feature actually means
-- why a method was chosen
-- what each library is doing in the project
-- what can go wrong
-- what still feels unclear
+- `01_cmapss_data_understanding.ipynb`
+  Dataset understanding and early analysis
 
-Start here:
-- `journal/learning_journal.md`
+- `02_anomaly_baseline_visualization.ipynb`
+  Visualization of the baseline anomaly experiment
 
-## Notes
+- `03_lstm_autoencoder_comparison.ipynb`
+  Review notebook for saved LSTM comparison artifacts
 
-This README should stay high level.
-Daily execution details, detailed notes, and learning reflections belong in the journal or project-specific notebooks, not here.
+## Current Project State
+
+The repository currently has:
+
+- a working time-series storage setup
+- batch and streaming telemetry components
+- engineered telemetry features
+- anomaly detection baselines
+- an LSTM autoencoder comparison workflow
+- reproducible saved experiment outputs
+
+The result is a predictive maintenance codebase that already has a real anomaly-detection pipeline, not just model code in isolation.

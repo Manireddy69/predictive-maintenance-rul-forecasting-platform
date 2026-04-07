@@ -1,0 +1,6 @@
+model_key,model_name,roc_auc,pr_auc,pr_curve_points
+lstm_autoencoder,LSTM Autoencoder,0.9669917479369844,0.9667408612545799,242
+mad,MAD Distance,0.9485371342835708,0.9526350352394274,83
+zscore,Z-Score Distance,0.9443360840210052,0.9489485428844242,85
+local_outlier_factor,Local Outlier Factor,0.9264441110277569,0.9364467101433355,91
+isolation_forest,Isolation Forest,0.7642160540135035,0.7099775525403418,82

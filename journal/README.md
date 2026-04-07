@@ -20,9 +20,9 @@ This folder holds the working interpretation:
   The main note-taking template.
   Use this when you need structure.
 
-- `day_01.md`
-  First real entry.
-  This matters more than the template because it shows what an actual note should feel like.
+- `day_01.md` to `day_06.md`
+  Daily working notes.
+  These matter more than the template because they show what the project actually felt like while it was being built.
 
 - `submission_checklist.md`
   A running checklist based on the PDF's deliverables and evaluation style.
@@ -36,6 +36,13 @@ This folder holds the working interpretation:
 2. Write in `day_0X.md` files when you want real notes.
 3. Use `learning_journal.md` when you get stuck and need prompts.
 4. Check `submission_checklist.md` once a week so the capstone requirements do not sneak up on you.
+
+If the day files are good, someone should be able to read them and understand:
+
+- what was built
+- why a method was chosen
+- what alternatives were considered
+- what still felt uncertain at the end of the day
 
 ## What not to do
 

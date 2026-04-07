@@ -153,25 +153,48 @@ What can go wrong:
 - reporting only the best model
 - changing preprocessing between models and pretending the comparison is fair
 
-### Day 6 - Analyze baseline errors
+### Day 6 - Anomaly detection comparison and sequence justification
 
 What I am really doing:
-- figure out why the baseline is weak
-- decide whether sequence context is actually the missing piece
+- compare simple anomaly detectors against a sequence model instead of assuming the deep model should win
+- test whether temporal context adds real value over robust statistical scoring
 
 What I need to understand:
-- metrics alone do not tell me where the model fails
-- low-RUL regions usually matter more
+- anomaly detection and RUL are separate tasks and should stay conceptually separate
+- strong simple baselines are valuable because they tell me whether the deep model is actually earning its complexity
 
 What should exist by the end:
-- prediction vs truth plots
-- residual analysis
-- notes on hard units and hard regions
+- `z-score` and `MAD` anomaly baselines
+- an LSTM autoencoder with reconstruction-error thresholding
+- one saved comparison run with ROC-AUC and PR-AUC
+- a notebook that reads and visualizes the saved experiment artifacts
+- a journal note that explains the result in plain language
 
 What can go wrong:
 - moving to LSTM because it sounds advanced
-- not checking unit-level behavior
-- ignoring whether the model is especially bad near failure
+- comparing row-level and window-level results as if they mean the same thing
+- hiding the fact that simple methods might outperform the deep model
+
+#### Day 6 completion note
+
+Completed:
+
+- added `z-score` and `MAD` to the anomaly baseline code
+- built the LSTM autoencoder comparison pipeline
+- saved experiment outputs to `Data/experiments/anomaly_day6/`
+- created `notebooks/03_lstm_autoencoder_comparison.ipynb`
+
+Key result from the completed window-level comparison:
+
+- `MAD Distance`: ROC-AUC `0.941561`, PR-AUC `0.939986`
+- `Z-Score Distance`: ROC-AUC `0.940698`, PR-AUC `0.939898`
+- `LSTM Autoencoder`: ROC-AUC `0.933422`, PR-AUC `0.928510`
+
+What that means:
+
+- the LSTM autoencoder is strong and valid
+- but the robust statistical methods are still slightly better on the current synthetic setup
+- that makes Day 6 a success, because the comparison is now evidence-based instead of assumption-based
 
 ### Day 7 - Improve the baseline without changing the whole project
 
@@ -186,6 +209,13 @@ What I need to understand:
 What should exist by the end:
 - one stronger baseline
 - experiment notes that explain what changed
+
+Best Day 7 handoff after Day 6:
+
+- do not replace the simpler baselines just because the LSTM exists
+- test only a small number of controlled changes
+- focus on whether the synthetic anomaly design is rewarding pointwise deviation more than temporal disruption
+- improve only what the Day 6 results suggest is actually weak
 
 What can go wrong:
 - changing five things at once

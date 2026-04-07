@@ -1,0 +1,27 @@
+{
+  "run_name": "smoke_save_check",
+  "created_at_utc": "2026-04-07T03:27:00.066858+00:00",
+  "threshold": 1.2701937437057496,
+  "device_name": "cpu",
+  "anomaly_fraction": 0.08,
+  "random_state": 42,
+  "config": {
+    "sequence_length": 20,
+    "stride": 5,
+    "hidden_dim": 64,
+    "latent_dim": 32,
+    "num_layers": 1,
+    "dropout": 0.0,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "num_epochs": 1,
+    "contamination": 0.08,
+    "device": null
+  },
+  "best_model": {
+    "model_key": "mad",
+    "model_name": "MAD Distance",
+    "roc_auc": 0.9415614617940198,
+    "pr_auc": 0.9399860788418319
+  }
+}

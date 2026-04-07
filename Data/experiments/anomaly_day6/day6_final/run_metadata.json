@@ -1,0 +1,27 @@
+{
+  "run_name": "day6_final",
+  "created_at_utc": "2026-04-07T03:28:59.964367+00:00",
+  "threshold": 0.12000980824232102,
+  "device_name": "cpu",
+  "anomaly_fraction": 0.08,
+  "random_state": 42,
+  "config": {
+    "sequence_length": 30,
+    "stride": 5,
+    "hidden_dim": 64,
+    "latent_dim": 32,
+    "num_layers": 1,
+    "dropout": 0.0,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "num_epochs": 20,
+    "contamination": 0.08,
+    "device": null
+  },
+  "best_model": {
+    "model_key": "lstm_autoencoder",
+    "model_name": "LSTM Autoencoder",
+    "roc_auc": 0.9669917479369844,
+    "pr_auc": 0.9667408612545799
+  }
+}
