@@ -11,5 +11,6 @@ jupyter
 psycopg[binary]
 kafka-python
 torch
+lightning
 pytest
 mlflow

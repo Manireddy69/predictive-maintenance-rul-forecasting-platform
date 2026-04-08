@@ -260,6 +260,27 @@ This logs:
 python -m pytest tests/test_anomaly_baseline.py tests/test_anomaly_lstm_autoencoder.py tests/test_kafka_to_timescaledb_consumer.py -q
 ```
 
+### 6. Run Day 8 sequence preparation
+
+For continuous RUL windows:
+
+```bash
+python -m src.run_sequence_preparation --fd FD001 --target-mode rul --window-size 30 --stride 1
+```
+
+For binary failure forecasting over the next 30 cycles:
+
+```bash
+python -m src.run_sequence_preparation --fd FD001 --target-mode failure_in_next_window --window-size 30 --prediction-horizon 30
+```
+
+This prints:
+
+- train, validation, and test window counts
+- target summary for the selected task
+- one batch shape from each loader
+- a metadata preview showing how targets are aligned to the end of each window
+
 ## Airflow Runtime
 
 To start the local Airflow and TimescaleDB stack:
