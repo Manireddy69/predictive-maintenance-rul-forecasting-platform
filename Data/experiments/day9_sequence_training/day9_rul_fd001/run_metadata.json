@@ -1,0 +1,31 @@
+{
+  "created_at_utc": "2026-04-09T13:59:53.932659+00:00",
+  "model_config": {
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.27080725777960457,
+    "learning_rate": 0.00043284502212938834,
+    "weight_decay": 0.0001
+  },
+  "training_config": {
+    "target_mode": "rul",
+    "window_size": 40,
+    "stride": 1,
+    "prediction_horizon": 30,
+    "batch_size": 128,
+    "max_epochs": 15,
+    "patience": 4,
+    "validation_fraction": 0.2,
+    "num_workers": 0,
+    "random_state": 42,
+    "accelerator": "auto"
+  },
+  "metrics": {
+    "rmse": 35.33567408839472,
+    "mae": 25.769067764282227,
+    "r2": 0.5611104965209961
+  },
+  "checkpoint_path": "C:\\Users\\Manikanth Reddy\\Documents\\LogicVeda\\Project-1\\Data\\experiments\\day9_sequence_training\\final_fit\\checkpoints\\best-v2.ckpt",
+  "optuna_best_value": 20.713775634765625,
+  "optuna_trial_count": 10
+}
