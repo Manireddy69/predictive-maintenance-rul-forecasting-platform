@@ -12,5 +12,6 @@ psycopg[binary]
 kafka-python
 torch
 lightning
+optuna
 pytest
 mlflow

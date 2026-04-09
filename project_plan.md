@@ -28,3 +28,9 @@ Complete the first day of the project by inspecting the dataset and building the
 - Engineer lag-1 to lag-12 features.
 - Engineer FFT top-5 frequency amplitude features.
 - Engineer cross-sensor ratio features and load the result into a TimescaleDB hypertable.
+
+## Day 9 planner
+- Train a supervised bidirectional LSTM + attention model in PyTorch Lightning.
+- Keep the recurrent stack at 2-3 bidirectional layers with dropout in the 0.2-0.3 range.
+- Tune learning rate, hidden size, window length, dropout rate, and layer count with Optuna.
+- Evaluate the best checkpoint on the CMAPSS test split and save predictions plus trial history.

@@ -1,0 +1,29 @@
+{
+  "created_at_utc": "2026-04-09T13:31:39.535631+00:00",
+  "model_config": {
+    "hidden_size": 128,
+    "num_layers": 2,
+    "dropout": 0.25,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001
+  },
+  "training_config": {
+    "target_mode": "rul",
+    "window_size": 30,
+    "stride": 1,
+    "prediction_horizon": 30,
+    "batch_size": 128,
+    "max_epochs": 5,
+    "patience": 4,
+    "validation_fraction": 0.2,
+    "num_workers": 0,
+    "random_state": 42,
+    "accelerator": "auto"
+  },
+  "metrics": {
+    "rmse": 38.98626154002442,
+    "mae": 29.43736457824707,
+    "r2": 0.48986929655075073
+  },
+  "checkpoint_path": "C:\\Users\\Manikanth Reddy\\Documents\\LogicVeda\\Project-1\\Data\\experiments\\day9_sequence_training\\day9_rul_full_v2\\final_fit\\checkpoints\\best.ckpt"
+}

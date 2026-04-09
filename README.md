@@ -281,6 +281,27 @@ This prints:
 - one batch shape from each loader
 - a metadata preview showing how targets are aligned to the end of each window
 
+### 7. Run Day 9 supervised sequence training with Optuna
+
+For RUL regression with bidirectional LSTM + attention and Optuna tuning:
+
+```bash
+python -m src.run_sequence_training --fd FD001 --target-mode rul --max-epochs 15 --optuna-trials 10
+```
+
+For binary failure forecasting over the next 30 cycles:
+
+```bash
+python -m src.run_sequence_training --fd FD001 --target-mode failure_in_next_window --prediction-horizon 30 --max-epochs 15 --optuna-trials 10
+```
+
+This workflow:
+
+- trains a `PyTorch Lightning` bidirectional LSTM with temporal attention
+- uses `Optuna` to tune learning rate, hidden size, window length, dropout, and layer count
+- evaluates the best checkpoint on the CMAPSS test split
+- saves metrics, predictions, Optuna trial history, and a markdown summary under `Data/experiments/day9_sequence_training/`
+
 ## Airflow Runtime
 
 To start the local Airflow and TimescaleDB stack:
