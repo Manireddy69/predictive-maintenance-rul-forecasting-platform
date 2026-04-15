@@ -1,8 +1,16 @@
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import streamlit as st
 
-from app.dashboard_data import load_prediction_table, load_schedule_table
+
+APP_DIR = Path(__file__).resolve().parents[1]
+if str(APP_DIR) not in sys.path:
+    sys.path.insert(0, str(APP_DIR))
+
+from dashboard_data import load_prediction_table, load_schedule_table
 
 
 st.title("Equipment Detail")
