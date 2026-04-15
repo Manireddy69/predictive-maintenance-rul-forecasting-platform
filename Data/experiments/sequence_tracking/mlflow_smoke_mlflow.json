@@ -1,0 +1,11 @@
+{
+  "tracking_uri": "file:///C:/Users/Manikanth%20Reddy/Documents/LogicVeda/Project-1/mlruns",
+  "run_id": "05a49bd6618b428f86b53efa34fe48b0",
+  "experiment_name": "week2-sequence-forecasting",
+  "variant_name": "lstm_smoke_v1",
+  "metrics": {
+    "rmse": 47.3717816147902,
+    "mae": 36.1242790222168,
+    "r2": 0.24682188034057617
+  }
+}

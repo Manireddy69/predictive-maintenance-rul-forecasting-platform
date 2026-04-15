@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 
@@ -19,6 +20,38 @@ def _load_mlflow():
 
 def default_tracking_uri(project_root: Path) -> str:
     return (Path(project_root) / "mlruns").resolve().as_uri()
+
+
+def compute_regression_calibration_metrics(
+    targets: np.ndarray | pd.Series,
+    predictions: np.ndarray | pd.Series,
+    num_bins: int = 10,
+) -> dict[str, float]:
+    targets_array = np.asarray(targets, dtype=float)
+    predictions_array = np.asarray(predictions, dtype=float)
+    if targets_array.shape != predictions_array.shape:
+        raise ValueError("targets and predictions must have the same shape.")
+    if targets_array.size < 2:
+        return {
+            "calibration_slope": float("nan"),
+            "calibration_intercept": float("nan"),
+            "calibration_mae": float("nan"),
+        }
+
+    design = np.vstack([predictions_array, np.ones_like(predictions_array)]).T
+    slope, intercept = np.linalg.lstsq(design, targets_array, rcond=None)[0]
+
+    bin_count = max(2, min(int(num_bins), int(targets_array.size)))
+    bin_frame = pd.DataFrame({"target": targets_array, "prediction": predictions_array})
+    bin_frame["bin"] = pd.qcut(bin_frame["prediction"], q=bin_count, duplicates="drop")
+    grouped = bin_frame.groupby("bin", observed=False).agg(target_mean=("target", "mean"), prediction_mean=("prediction", "mean"))
+    calibration_mae = float(np.abs(grouped["target_mean"] - grouped["prediction_mean"]).mean()) if not grouped.empty else float("nan")
+
+    return {
+        "calibration_slope": float(slope),
+        "calibration_intercept": float(intercept),
+        "calibration_mae": calibration_mae,
+    }
 
 
 def log_week1_anomaly_checkpoint(
@@ -80,6 +113,73 @@ def log_week1_anomaly_checkpoint(
         artifact_paths = [*artifact_paths, summary_json]
 
         for artifact_path in artifact_paths:
+            path = Path(artifact_path)
+            if path.exists():
+                mlflow.log_artifact(str(path))
+
+        return run.info.run_id
+
+
+def log_sequence_forecasting_run(
+    *,
+    metrics: dict[str, float],
+    predictions: pd.DataFrame,
+    model_config: dict[str, Any],
+    training_config: dict[str, Any],
+    prophet_config: dict[str, Any] | None,
+    artifact_paths: list[Path],
+    project_root: Path,
+    experiment_name: str = "week2-sequence-forecasting",
+    run_name: str | None = None,
+    tracking_uri: str | None = None,
+    variant_name: str | None = None,
+) -> str:
+    mlflow = _load_mlflow()
+    tracking_uri = tracking_uri or default_tracking_uri(project_root)
+    mlflow.set_tracking_uri(tracking_uri)
+    mlflow.set_experiment(experiment_name)
+
+    effective_run_name = run_name or variant_name or "sequence_forecasting"
+    with mlflow.start_run(run_name=effective_run_name) as run:
+        mlflow.log_param("variant_name", variant_name or effective_run_name)
+        for key, value in model_config.items():
+            mlflow.log_param(f"model_{key}", value)
+        for key, value in training_config.items():
+            mlflow.log_param(f"training_{key}", value)
+        if prophet_config is not None:
+            for key, value in prophet_config.items():
+                mlflow.log_param(f"prophet_{key}", value)
+
+        for key, value in metrics.items():
+            if value is not None and not pd.isna(value):
+                mlflow.log_metric(key, float(value))
+
+        if {"rul", "prediction"}.issubset(predictions.columns):
+            calibration_metrics = compute_regression_calibration_metrics(
+                targets=predictions["rul"].to_numpy(),
+                predictions=predictions["prediction"].to_numpy(),
+            )
+            for key, value in calibration_metrics.items():
+                if value is not None and not pd.isna(value):
+                    mlflow.log_metric(key, float(value))
+
+        summary_json = Path(project_root) / "Data" / "experiments" / "sequence_tracking" / f"{effective_run_name}_mlflow.json"
+        summary_json.parent.mkdir(parents=True, exist_ok=True)
+        summary_json.write_text(
+            json.dumps(
+                {
+                    "tracking_uri": tracking_uri,
+                    "run_id": run.info.run_id,
+                    "experiment_name": experiment_name,
+                    "variant_name": variant_name or effective_run_name,
+                    "metrics": metrics,
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+
+        for artifact_path in [*artifact_paths, summary_json]:
             path = Path(artifact_path)
             if path.exists():
                 mlflow.log_artifact(str(path))

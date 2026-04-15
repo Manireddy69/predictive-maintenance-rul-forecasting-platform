@@ -283,7 +283,7 @@ This prints:
 
 ### 7. Run Day 9 supervised sequence training with Optuna
 
-For RUL regression with bidirectional LSTM + attention and Optuna tuning:
+For RUL regression with bidirectional LSTM + attention, Prophet trend/seasonality blending, and Optuna tuning:
 
 ```bash
 python -m src.run_sequence_training --fd FD001 --target-mode rul --max-epochs 15 --optuna-trials 10
@@ -298,9 +298,89 @@ python -m src.run_sequence_training --fd FD001 --target-mode failure_in_next_win
 This workflow:
 
 - trains a `PyTorch Lightning` bidirectional LSTM with temporal attention
+- fits a `Prophet` baseline on the cycle-level RUL trend with seasonality decomposition
+- blends the final RUL prediction as `0.7 * LSTM + 0.3 * Prophet` by default
 - uses `Optuna` to tune learning rate, hidden size, window length, dropout, and layer count
 - evaluates the best checkpoint on the CMAPSS test split
 - saves metrics, predictions, Optuna trial history, and a markdown summary under `Data/experiments/day9_sequence_training/`
+
+To log a comparable forecasting variant to MLflow:
+
+```bash
+python -m src.run_sequence_training --fd FD001 --target-mode rul --max-epochs 5 --optuna-trials 0 --disable-prophet-ensemble --log-mlflow --variant-name lstm_baseline
+```
+
+### 8. Run the maintenance scheduler and sensitivity analysis
+
+To convert the latest saved forecast into a maintenance schedule:
+
+```bash
+python -m src.run_week2_checkpoint --predictions-csv Data/experiments/day9_sequence_training/fd001_live_check/test_predictions.csv --run-name week2_smoke
+```
+
+This workflow:
+
+- builds a realistic maintenance cost matrix with downtime, repair, and labor costs
+- solves a `PuLP` mixed-integer schedule with technician, parts, and downtime SLA constraints
+- runs cost-parameter sensitivity analysis to measure schedule robustness
+- saves the optimal schedule as JSON/CSV plus a cost-vs-risk visualization under `Data/experiments/week2_checkpoint/`
+
+### 9. Launch the Streamlit dashboard skeleton
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+The dashboard includes starter pages for:
+
+- `Overview`
+- `Equipment Detail`
+- `Alerts Configuration`
+- `Reports`
+
+## Streamlit Deployment
+
+The Streamlit application entrypoint is:
+
+- `app/streamlit_app.py`
+
+### Local launch
+
+```bash
+streamlit run app/streamlit_app.py
+```
+
+### Docker deployment
+
+Build the image from the project root:
+
+```bash
+docker build -f deploy/streamlit/Dockerfile -t logicveda-streamlit .
+```
+
+Run the container and expose the dashboard on port `8501`:
+
+```bash
+docker run --rm -p 8501:8501 logicveda-streamlit
+```
+
+Then open:
+
+- `http://localhost:8501`
+
+### Streamlit Community Cloud
+
+To publish this dashboard on Streamlit Community Cloud:
+
+1. Push this repository to GitHub.
+2. Create a new Streamlit app in the Streamlit dashboard.
+3. Select this repository and set the main file path to `app/streamlit_app.py`.
+4. Deploy using the repository root `requirements.txt`.
+
+The repository also includes:
+
+- `.streamlit/config.toml` for Streamlit server settings and theming
+- `deploy/streamlit/Dockerfile` for container-based deployment
 
 ## Airflow Runtime
 

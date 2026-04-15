@@ -1,0 +1,42 @@
+{
+  "created_at_utc": "2026-04-15T16:15:28.167250+00:00",
+  "model_config": {
+    "hidden_size": 128,
+    "num_layers": 2,
+    "dropout": 0.25,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001
+  },
+  "training_config": {
+    "target_mode": "rul",
+    "window_size": 30,
+    "stride": 1,
+    "prediction_horizon": 30,
+    "batch_size": 128,
+    "max_epochs": 1,
+    "patience": 4,
+    "validation_fraction": 0.2,
+    "num_workers": 0,
+    "random_state": 42,
+    "accelerator": "auto"
+  },
+  "metrics": {
+    "rmse": 47.3717816147902,
+    "mae": 36.1242790222168,
+    "r2": 0.24682188034057617,
+    "ensemble_applied": 0.0,
+    "prophet_fallback_used": 1.0
+  },
+  "checkpoint_path": "C:\\Users\\Manikanth Reddy\\Documents\\LogicVeda\\Project-1\\Data\\experiments\\day9_sequence_training\\hybrid_timeout_smoke\\final_fit\\checkpoints\\best.ckpt",
+  "prophet_ensemble_config": {
+    "enabled": true,
+    "lstm_weight": 0.7,
+    "prophet_weight": 0.3,
+    "seasonality_period": 20.0,
+    "seasonality_fourier_order": 5,
+    "changepoint_prior_scale": 0.05,
+    "seasonality_prior_scale": 10.0,
+    "fit_timeout_seconds": 5,
+    "fallback_to_lstm_on_failure": true
+  }
+}

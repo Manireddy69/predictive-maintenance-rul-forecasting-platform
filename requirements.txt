@@ -13,5 +13,8 @@ kafka-python
 torch
 lightning
 optuna
+prophet
+pulp
 pytest
 mlflow
+streamlit

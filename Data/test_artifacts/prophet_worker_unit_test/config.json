@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "lstm_weight": 0.7,
+  "prophet_weight": 0.3,
+  "seasonality_period": 20.0,
+  "seasonality_fourier_order": 5,
+  "changepoint_prior_scale": 0.05,
+  "seasonality_prior_scale": 10.0,
+  "fit_timeout_seconds": 60,
+  "fallback_to_lstm_on_failure": true
+}

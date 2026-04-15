@@ -1,0 +1,92 @@
+{
+  "created_at_utc": "2026-04-15T15:43:19.163981+00:00",
+  "fd": "FD001",
+  "prediction_source": "C:\\Users\\Manikanth Reddy\\Documents\\LogicVeda\\Project-1\\Data\\experiments\\day9_sequence_training\\fd001_live_check\\test_predictions.csv",
+  "forecast_run_dir": null,
+  "scheduler_summary": {
+    "solver_status": "Optimal",
+    "task_count": 12,
+    "total_cost": 1066287.97,
+    "total_direct_cost": 984000.0,
+    "total_risk_cost": 82287.97,
+    "average_cost_per_task": 88857.33,
+    "tasks_after_preferred_day": 6,
+    "on_or_before_preferred_rate": 0.5,
+    "total_downtime_hours": 80.0,
+    "total_technician_hours": 160.0
+  },
+  "sensitivity_scenarios": [
+    {
+      "scenario": "base",
+      "total_cost": 1066287.97,
+      "total_risk_cost": 82287.97,
+      "tasks_after_preferred_day": 6,
+      "on_or_before_preferred_rate": 0.5,
+      "changed_assignments": 0,
+      "schedule_robustness": 1.0,
+      "downtime_multiplier": 1.0,
+      "repair_multiplier": 1.0,
+      "labor_multiplier": 1.0
+    },
+    {
+      "scenario": "high_downtime",
+      "total_cost": 1273287.97,
+      "total_risk_cost": 82287.97,
+      "tasks_after_preferred_day": 6,
+      "on_or_before_preferred_rate": 0.5,
+      "changed_assignments": 2,
+      "schedule_robustness": 0.8333,
+      "downtime_multiplier": 1.25,
+      "repair_multiplier": 1.0,
+      "labor_multiplier": 1.0
+    },
+    {
+      "scenario": "high_labor",
+      "total_cost": 1071087.97,
+      "total_risk_cost": 82287.97,
+      "tasks_after_preferred_day": 6,
+      "on_or_before_preferred_rate": 0.5,
+      "changed_assignments": 0,
+      "schedule_robustness": 1.0,
+      "downtime_multiplier": 1.0,
+      "repair_multiplier": 1.0,
+      "labor_multiplier": 1.2
+    },
+    {
+      "scenario": "high_parts",
+      "total_cost": 1092687.97,
+      "total_risk_cost": 82287.97,
+      "tasks_after_preferred_day": 6,
+      "on_or_before_preferred_rate": 0.5,
+      "changed_assignments": 0,
+      "schedule_robustness": 1.0,
+      "downtime_multiplier": 1.0,
+      "repair_multiplier": 1.2,
+      "labor_multiplier": 1.0
+    },
+    {
+      "scenario": "low_downtime",
+      "total_cost": 942087.97,
+      "total_risk_cost": 82287.97,
+      "tasks_after_preferred_day": 6,
+      "on_or_before_preferred_rate": 0.5,
+      "changed_assignments": 0,
+      "schedule_robustness": 1.0,
+      "downtime_multiplier": 0.85,
+      "repair_multiplier": 1.0,
+      "labor_multiplier": 1.0
+    },
+    {
+      "scenario": "stress_case",
+      "total_cost": 1338087.97,
+      "total_risk_cost": 82287.97,
+      "tasks_after_preferred_day": 6,
+      "on_or_before_preferred_rate": 0.5,
+      "changed_assignments": 2,
+      "schedule_robustness": 0.8333,
+      "downtime_multiplier": 1.3,
+      "repair_multiplier": 1.15,
+      "labor_multiplier": 1.15
+    }
+  ]
+}

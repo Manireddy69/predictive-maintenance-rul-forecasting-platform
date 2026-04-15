@@ -1,0 +1,148 @@
+{
+  "created_at_utc": "2026-04-15T16:17:15.135402+00:00",
+  "summary": {
+    "solver_status": "Optimal",
+    "task_count": 3,
+    "total_cost": 299457.14,
+    "total_direct_cost": 288600.0,
+    "total_risk_cost": 10857.14,
+    "average_cost_per_task": 99819.05,
+    "tasks_after_preferred_day": 1,
+    "on_or_before_preferred_rate": 0.6667,
+    "total_downtime_hours": 22.0,
+    "total_technician_hours": 44.0
+  },
+  "solver_status": "Optimal",
+  "cost_matrix": {
+    "downtime_cost_per_hour": 10000.0,
+    "technician_hourly_rate": 150.0,
+    "repair_profiles": {
+      "inspection": {
+        "repair_type": "inspection",
+        "repair_cost": 2000.0,
+        "duration_hours": 2.0,
+        "required_technicians": 1,
+        "part_name": "inspection_kit",
+        "part_quantity": 1
+      },
+      "minor_service": {
+        "repair_type": "minor_service",
+        "repair_cost": 5000.0,
+        "duration_hours": 4.0,
+        "required_technicians": 1,
+        "part_name": "service_kit",
+        "part_quantity": 1
+      },
+      "component_repair": {
+        "repair_type": "component_repair",
+        "repair_cost": 9000.0,
+        "duration_hours": 6.0,
+        "required_technicians": 2,
+        "part_name": "rotor_assembly",
+        "part_quantity": 1
+      },
+      "major_overhaul": {
+        "repair_type": "major_overhaul",
+        "repair_cost": 15000.0,
+        "duration_hours": 8.0,
+        "required_technicians": 2,
+        "part_name": "engine_core",
+        "part_quantity": 1
+      }
+    }
+  },
+  "resources": {
+    "planning_horizon_days": 5,
+    "technician_hours_per_day": 16.0,
+    "max_daily_downtime_hours": 8.0,
+    "parts_inventory": {
+      "inspection_kit": 50,
+      "service_kit": 50,
+      "rotor_assembly": 50,
+      "engine_core": 50
+    },
+    "daily_production_multipliers": []
+  },
+  "tasks": [
+    {
+      "equipment_id": "unit_3",
+      "repair_type": "major_overhaul",
+      "predicted_rul": 3.0,
+      "predicted_rul_days": 0.6,
+      "preferred_day": 0,
+      "risk_penalty_per_day": 11571.428571428572,
+      "criticality": 0.9571428571428572
+    },
+    {
+      "equipment_id": "unit_2",
+      "repair_type": "major_overhaul",
+      "predicted_rul": 8.0,
+      "predicted_rul_days": 1.6,
+      "preferred_day": 0,
+      "risk_penalty_per_day": 10857.142857142859,
+      "criticality": 0.8857142857142858
+    },
+    {
+      "equipment_id": "unit_1",
+      "repair_type": "component_repair",
+      "predicted_rul": 18.0,
+      "predicted_rul_days": 3.6,
+      "preferred_day": 2,
+      "risk_penalty_per_day": 9428.571428571428,
+      "criticality": 0.7428571428571429
+    }
+  ],
+  "schedule": [
+    {
+      "equipment_id": "unit_3",
+      "scheduled_day": 0,
+      "repair_type": "major_overhaul",
+      "predicted_rul": 3.0,
+      "predicted_rul_days": 0.6,
+      "preferred_day": 0,
+      "criticality": 0.9571428571428572,
+      "production_multiplier": 1.15,
+      "direct_cost": 109400.0,
+      "risk_cost": 0.0,
+      "total_cost": 109400.0,
+      "duration_hours": 8.0,
+      "required_technicians": 2,
+      "part_name": "engine_core",
+      "part_quantity": 1
+    },
+    {
+      "equipment_id": "unit_2",
+      "scheduled_day": 1,
+      "repair_type": "major_overhaul",
+      "predicted_rul": 8.0,
+      "predicted_rul_days": 1.6,
+      "preferred_day": 0,
+      "criticality": 0.8857142857142858,
+      "production_multiplier": 1.1,
+      "direct_cost": 105400.0,
+      "risk_cost": 10857.14,
+      "total_cost": 116257.14,
+      "duration_hours": 8.0,
+      "required_technicians": 2,
+      "part_name": "engine_core",
+      "part_quantity": 1
+    },
+    {
+      "equipment_id": "unit_1",
+      "scheduled_day": 2,
+      "repair_type": "component_repair",
+      "predicted_rul": 18.0,
+      "predicted_rul_days": 3.6,
+      "preferred_day": 2,
+      "criticality": 0.7428571428571429,
+      "production_multiplier": 1.05,
+      "direct_cost": 73800.0,
+      "risk_cost": 0.0,
+      "total_cost": 73800.0,
+      "duration_hours": 6.0,
+      "required_technicians": 2,
+      "part_name": "rotor_assembly",
+      "part_quantity": 1
+    }
+  ]
+}

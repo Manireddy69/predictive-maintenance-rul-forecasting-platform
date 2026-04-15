@@ -1,0 +1,13 @@
+equipment_id,scheduled_day,repair_type,predicted_rul,predicted_rul_days,preferred_day,criticality,production_multiplier,direct_cost,risk_cost,total_cost,duration_hours,required_technicians,part_name,part_quantity
+unit_35,0,major_overhaul,0.0,0.5,0,0.9642857142857143,1.15,109400.0,0.0,109400.0,8.0,2,engine_core,1
+unit_81,0,major_overhaul,14.760114,2.9520228,1,0.7891412285714285,1.15,109400.0,0.0,109400.0,8.0,2,engine_core,1
+unit_56,1,major_overhaul,14.07294,2.8145879999999996,1,0.798958,1.1,105400.0,0.0,105400.0,8.0,2,engine_core,1
+unit_91,1,major_overhaul,14.193051,2.8386102,1,0.7972421285714286,1.1,105400.0,0.0,105400.0,8.0,2,engine_core,1
+unit_76,2,component_repair,17.127077,3.4254154,2,0.7553274714285714,1.05,73800.0,0.0,73800.0,6.0,2,rotor_assembly,1
+unit_34,2,component_repair,17.91922,3.583844,2,0.7440111428571429,1.05,73800.0,0.0,73800.0,6.0,2,rotor_assembly,1
+unit_92,3,component_repair,18.296192,3.6592384000000004,2,0.7386258285714286,1.0,70800.0,9386.26,80186.26,6.0,2,rotor_assembly,1
+unit_68,3,component_repair,18.493359,3.6986718000000005,2,0.7358091571428572,1.0,70800.0,9358.09,80158.09,6.0,2,rotor_assembly,1
+unit_31,4,component_repair,19.333918,3.8667836,2,0.7238011714285715,1.0,70800.0,18476.02,89276.02,6.0,2,rotor_assembly,1
+unit_42,4,component_repair,20.836374,4.1672747999999995,3,0.7023375142857143,1.0,70800.0,9023.38,79823.38,6.0,2,rotor_assembly,1
+unit_49,5,component_repair,20.911125,4.182225,3,0.7012696428571429,0.85,61800.0,18025.39,79825.39,6.0,2,rotor_assembly,1
+unit_82,5,component_repair,20.934101,4.1868202,3,0.7009414142857143,0.85,61800.0,18018.83,79818.83,6.0,2,rotor_assembly,1
