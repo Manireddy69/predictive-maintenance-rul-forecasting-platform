@@ -1,0 +1,21 @@
+[
+  {
+    "iterations": 3,
+    "min_seconds": 0.018338400055654347,
+    "median_seconds": 0.022761099971830845,
+    "mean_seconds": 0.02670020000853886,
+    "max_seconds": 0.039001099998131394,
+    "mode": "batch_artifact_load",
+    "source": "C:\\Users\\Manikanth Reddy\\Documents\\LogicVeda\\Project-1\\Data\\experiments\\day9_sequence_training\\hybrid_timeout_smoke\\test_predictions.csv"
+  },
+  {
+    "iterations": 3,
+    "min_seconds": 0.20017470000311732,
+    "median_seconds": 0.24293779989238828,
+    "mean_seconds": 0.28099899999021244,
+    "max_seconds": 0.39988450007513165,
+    "mode": "scheduler_solve",
+    "task_count": 12,
+    "source": "C:\\Users\\Manikanth Reddy\\Documents\\LogicVeda\\Project-1\\Data\\experiments\\day9_sequence_training\\hybrid_timeout_smoke\\test_predictions.csv"
+  }
+]
