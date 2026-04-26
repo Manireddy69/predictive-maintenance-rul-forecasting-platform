@@ -344,7 +344,11 @@ The Streamlit application entrypoint is:
 
 - `app/streamlit_app.py`
 
-Public/static project report site:
+Verified public/static project report site:
+
+- `https://raw.githack.com/Manireddy69/predictive-maintenance-rul-forecasting-platform/gh-pages/index.html`
+
+GitHub Pages canonical URL, after enabling Pages source as `gh-pages / root` in repository settings:
 
 - `https://manireddy69.github.io/predictive-maintenance-rul-forecasting-platform/`
 
