@@ -27,4 +27,7 @@ dist/
 
 # Generated project data
 Data/Synthetic/
+Data/test_artifacts/prophet_worker/prophet_rul_idmoi527/
 mlruns/
+submission_package/
+LogicVeda_Project1_Submission_Package.zip

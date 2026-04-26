@@ -435,6 +435,23 @@ Generated project reports currently include:
 
 - `reports/week1_eda_report.md`
 - `reports/week1_checkpoint.md`
+- `reports/final_project_report_draft.md`
+
+Final submission helpers:
+
+- `journal/demo_video_script.md`
+- `journal/screenshot_checklist.md`
+- `journal/submission_checklist.md`
+- `reports/compliance_report.md`
+
+Verification evidence commands:
+
+```bash
+python -m src.evaluate_anomaly
+python -m src.evaluate_rul
+python -m src.benchmark_latency --iterations 3 --max-tasks 12
+python -m src.render_report_html
+```
 
 ## Current Project State
 
