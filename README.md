@@ -344,6 +344,14 @@ The Streamlit application entrypoint is:
 
 - `app/streamlit_app.py`
 
+Public/static project report site:
+
+- `https://manireddy69.github.io/predictive-maintenance-rul-forecasting-platform/`
+
+Deployment link tracker:
+
+- `reports/deployment_links.md`
+
 ### Local launch
 
 ```bash
@@ -355,13 +363,13 @@ streamlit run app/streamlit_app.py
 Build the image from the project root:
 
 ```bash
-docker build -f deploy/streamlit/Dockerfile -t logicveda-streamlit .
+docker build -t predictive-maintenance-rul-dashboard .
 ```
 
 Run the container and expose the dashboard on port `8501`:
 
 ```bash
-docker run --rm -p 8501:8501 logicveda-streamlit
+docker run --rm -p 8501:8501 predictive-maintenance-rul-dashboard
 ```
 
 Then open:
